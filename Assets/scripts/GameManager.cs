@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     [SerializeField] private float time = 0.1f;
     [SerializeField] private bool isPlayerTurn = true;
+    [SerializeField] private GameObject playerPrefab;
     public bool IsPlayerTurn => isPlayerTurn;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -23,8 +24,15 @@ public class GameManager : MonoBehaviour
     }
 private void Start()
     {
-        // Initialize game state or load resources here
-        Instantiate(Resources.Load<GameObject>("Prefabs/Player")).name = "Player";
+       if(playerPrefab != null)
+        {
+           GameObject playerInstance = Instantiate(playerPrefab);
+        playerInstance.name = "Player";
+    }
+    else 
+    {
+        Debug.LogError("GameManager: Player Prefab is missing! Drag your player from the Project window into the GameManager slot.");
+        }
     }
 public void EndPlayerTurn()
     {
