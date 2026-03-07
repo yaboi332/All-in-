@@ -15,6 +15,8 @@ public class BattleManager : MonoBehaviour
     }
     void setupBattle()
     {
+        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation.position, playerBattleStation.rotation);
+        Unit playerUnit = playerGO.GetComponent<Unit>();
         // Setup the battle, e.g. spawn player and enemy
        Instantiate(playerPrefab, playerBattleStation.position, playerBattleStation.rotation);
        Instantiate(enemyPrefab, enemyBattleStation.position, enemyBattleStation.rotation);
