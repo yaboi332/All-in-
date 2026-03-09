@@ -17,17 +17,17 @@ public class BattleManager : MonoBehaviour
         setupBattle();
     }
     void setupBattle()
-    {
-        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation.position, playerBattleStation.rotation);
-        Unit playerUnit = playerGO.GetComponent<Unit>();
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation.position, enemyBattleStation.rotation);
-        Unit enemyUnit = enemyGO.GetComponent<Unit>();
-        // Setup the battle, e.g. spawn player and enemy
-       Instantiate(playerPrefab, playerBattleStation.position, playerBattleStation.rotation);
-       Instantiate(enemyPrefab, enemyBattleStation.position, enemyBattleStation.rotation);
-       
-    }
-    
-    // Update is called once per frame
-    
+{
+    // Spawn Player and make them a child of the station
+    GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
+    // Reset position to (0,0,0) relative to the station
+    playerGO.transform.localPosition = Vector3.zero;
+    playerUnit = playerGO.GetComponent<Unit>();
+
+    // Spawn Enemy and make them a child of the station
+    GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
+    // Reset position to (0,0,0) relative to the station
+    enemyGO.transform.localPosition = Vector3.zero;
+    enemyUnit = enemyGO.GetComponent<Unit>();
+}
 }

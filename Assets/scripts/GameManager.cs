@@ -22,18 +22,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-private void Start()
-    {
-       if(playerPrefab != null)
-        {
-           GameObject playerInstance = Instantiate(playerPrefab);
-        playerInstance.name = "Player";
-    }
-    else 
-    {
-        Debug.LogError("GameManager: Player Prefab is missing! Drag your player from the Project window into the GameManager slot.");
-        }
-    }
 public void EndPlayerTurn()
     {
         isPlayerTurn = false;
