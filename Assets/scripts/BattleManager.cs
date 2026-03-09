@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 public class BattleManager : MonoBehaviour
 {

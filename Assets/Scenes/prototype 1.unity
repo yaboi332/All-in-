@@ -528,8 +528,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 482b0e886a0d6f64da1bb27c0982039f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleManager
-  playerPrefab: {fileID: 0}
-  enemyPrefab: {fileID: 0}
+  playerPrefab: {fileID: 1353679588199064836, guid: a5e3608ec0bb0c445905da5b0ec8a588, type: 3}
+  enemyPrefab: {fileID: 7730519920496508438, guid: c9c3f9b5da2cd224b8f24c65dd5d80a7, type: 3}
   playerBattleStation: {fileID: 0}
   enemyBattleStation: {fileID: 0}
   state: 0
@@ -1368,7 +1368,7 @@ GameObject:
   - component: {fileID: 1667163196}
   - component: {fileID: 1667163195}
   m_Layer: 5
-  m_Name: AcePotrait
+  m_Name: AcePortrait
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1690,6 +1690,7 @@ GameObject:
   - component: {fileID: 2041446380}
   - component: {fileID: 2041446379}
   - component: {fileID: 2041446378}
+  - component: {fileID: 2041446381}
   m_Layer: 5
   m_Name: Battle Canvas
   m_TagString: Untagged
@@ -1781,6 +1782,21 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &2041446381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041446376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d9cc9ba014b1548b485270045aeb2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleHUD
+  battleCanvas: {fileID: 2041446376}
+  baseUI: {fileID: 363400629}
+  characterportrait: {fileID: 0}
 --- !u!224 &2053664435 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2798534988596425821, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
