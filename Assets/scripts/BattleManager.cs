@@ -11,6 +11,7 @@ public class BattleManager : MonoBehaviour
     Unit playerUnit;
     
     public PlayerAnimations playerAnimations;
+    public EnemyAnimations enemyAnimations;
 
     Unit enemyUnit;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,6 +36,7 @@ public class BattleManager : MonoBehaviour
     // Reset position to (0,0,0) relative to the station
     enemyGO.transform.localPosition = Vector3.zero;
     enemyUnit = enemyGO.GetComponent<Unit>();
+    enemyAnimations = enemyGO.GetComponent<EnemyAnimations>();
 
     battleHUD.SetHUD(playerUnit,enemyUnit);
 
@@ -80,7 +82,7 @@ public class BattleManager : MonoBehaviour
     private void enemyAttack()
     {
         // Damage the player
-        ///enemyAnimations.Attack();
+        enemyAnimations.Attack();
         bool isPlayerDead=playerUnit.TakeDamage(enemyUnit.damage);
         battleHUD.SetHp(playerUnit.health,enemyUnit.health);
 
