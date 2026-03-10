@@ -49,7 +49,7 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   level: 999
-  damage: 9999
+  damage: 10
 --- !u!1001 &4250617795411992782
 PrefabInstance:
   m_ObjectHideFlags: 0
