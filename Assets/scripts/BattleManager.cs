@@ -1,7 +1,7 @@
-using Unity.Collections.LowLevel.Unsafe;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
+public enum BattleState { START, PLAYERTURN, ENEMYTURN, BUSY, WON, LOST }
 public class BattleManager : MonoBehaviour
 {
     public GameObject playerPrefab;
@@ -18,6 +18,7 @@ public class BattleManager : MonoBehaviour
     public BattleState state;
 
     public BattleHUD battleHUD;
+    private EnemyAI activeEnemyAI;
     void Start()
     {
         state = BattleState.START;
@@ -37,7 +38,14 @@ public class BattleManager : MonoBehaviour
     enemyGO.transform.localPosition = Vector3.zero;
     enemyUnit = enemyGO.GetComponent<Unit>();
     enemyAnimations = enemyGO.GetComponent<EnemyAnimations>();
+// 3. Get the AI component (NEW)
+        activeEnemyAI = enemyGO.GetComponent<EnemyAI>();
 
+        // 4. Tell the AI who it is and who the player is
+        if(activeEnemyAI != null)
+        {
+            activeEnemyAI.Setup(enemyUnit, playerUnit);
+        }
     battleHUD.SetHUD(playerUnit,enemyUnit);
 
     state = BattleState.PLAYERTURN;
@@ -46,6 +54,7 @@ public class BattleManager : MonoBehaviour
 
     private void playerWeaponAttack()
     {
+        state = BattleState.BUSY;
         // Damage the enemy
         playerAnimations.Attack();
         bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.damage);
@@ -95,14 +104,19 @@ public class BattleManager : MonoBehaviour
         else
         {
             state = BattleState.PLAYERTURN;
-                enemyTurn();
+                
         }
     }
     public void enemyTurn()
     {
         if (state != BattleState.ENEMYTURN)
             return;
-            enemyAttack();
+           StartCoroutine(EnemyActionDelay());
     }
+    IEnumerator EnemyActionDelay()
+{
+    yield return new WaitForSeconds(1.5f); // Give the player time to breathe
+    enemyAttack();
+}
 
 }
