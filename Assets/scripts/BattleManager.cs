@@ -4,6 +4,8 @@ using UnityEngine.UI;
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, BUSY, WON, LOST }
 public class BattleManager : MonoBehaviour
 {
+    public int maxActionsPerTurn = 2;
+    private int currentActionsLeft;
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
     public Transform playerBattleStation;
@@ -54,6 +56,7 @@ public class BattleManager : MonoBehaviour
 
     private void playerWeaponAttack()
     {
+        if (currentActionsLeft <= 0) return;
         state = BattleState.BUSY;
         // Damage the enemy
         playerAnimations.Attack();
@@ -68,8 +71,8 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            state = BattleState.ENEMYTURN;
-                enemyTurn();
+           currentActionsLeft--;
+        state = BattleState.PLAYERTURN;
         }
     }
    
@@ -84,7 +87,9 @@ public class BattleManager : MonoBehaviour
 
      public void playerTurn()
     {
-        
+       state = BattleState.PLAYERTURN;
+    currentActionsLeft = maxActionsPerTurn; // Reset actions to 3 (or whatever you set)
+    Debug.Log("Player Turn Started. Actions: " + currentActionsLeft); 
     
     }
 
@@ -117,6 +122,15 @@ public class BattleManager : MonoBehaviour
 {
     yield return new WaitForSeconds(1.5f); // Give the player time to breathe
     enemyAttack();
+}
+public void OnEndTurnButton()
+{
+    // Only allow ending the turn if the player is actually allowed to move
+    if (state == BattleState.PLAYERTURN)
+    {
+        state = BattleState.ENEMYTURN;
+        enemyTurn();
+    }
 }
 
 }
