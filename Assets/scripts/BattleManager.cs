@@ -86,6 +86,27 @@ public class BattleManager : MonoBehaviour
         
     }
 
+    public void onSkillButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+       bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.skillAttack());
+       battleHUD.SetHp(playerUnit.health,enemyUnit.health);
+
+        //Check if the enemy is dead
+        if(isEnemyDead)
+        {
+            // End the battle
+            state = BattleState.WON;
+        }
+        else
+        {
+            state = BattleState.ENEMYTURN;
+                enemyTurn();
+        }
+        
+    }
+
      public void playerTurn()
     {
         playerUnit.skillPoints = playerUnit.MaxSkillPoints;
