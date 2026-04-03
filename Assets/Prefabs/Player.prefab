@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8637200397016060229}
   - component: {fileID: 3856413133078183444}
   - component: {fileID: 2516835804476345506}
-  - component: {fileID: 8952301383796722871}
   - component: {fileID: 8422192950818031091}
   - component: {fileID: -208466451826451234}
   m_Layer: 0
@@ -131,23 +130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   moveKeyHeld: 0
---- !u!114 &8952301383796722871
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1353679588199064836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86a2d5cce2b562a45837dd39318ca9a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Unit
-  unitName: Player
-  health: 100
-  maxHealth: 100
-  level: 1
-  damage: 15
 --- !u!114 &8422192950818031091
 MonoBehaviour:
   m_ObjectHideFlags: 0
