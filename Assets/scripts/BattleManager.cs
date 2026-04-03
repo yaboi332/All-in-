@@ -108,7 +108,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            state = BattleState.PLAYERTURN;
+            playerTurn(); // Go back to player's turn
                 
         }
     }
