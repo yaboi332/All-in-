@@ -1,53 +1,49 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour
+
+public class Player : Unit
 {
-    private Controls controls;
-    [SerializeField] private bool moveKeyHeld;
-    private void Awake()=>
-        controls = new Controls();
-    private void OnEnable()
+    public int skillPoints;
+    public int MaxSkillPoints;
+    public PlayerAnimations playerAnimations;
+
+    void Start()
     {
-        controls.Enable();
-        controls.Player.Movement.performed += onMovement;
-        controls.Player.Movement.canceled += onMovement;
-        controls.Player.Exit.performed += onExit;
+        playerAnimations = GetComponent<PlayerAnimations>();
     }
-    private void OnDisable()
-    {
-        controls.Disable();
-        controls.Player.Movement.performed -= onMovement;
-        controls.Player.Movement.canceled -= onMovement;
-        controls.Player.Exit.performed -= onExit;
+
+public int weaponAttack()
+{   playerAnimations.Attack();
+     skillPoints -= 1; // Example: weapon attack costs 1 skill point
+    skillPoints -= 1;
+    int damageDealt = damage; // Assuming playerUnit is accessible
+    
+    return damageDealt;
+}
+
+
+public int skillAttack()
+{
+    if (skillPoints >= 2)
+    {   playerAnimations.Attack();
+        skillPoints -= 2; // Example: skill attack costs 2 skill points
+        int damageDealt = damage * 2; // Example: skill attack does double damage
+        return damageDealt;
     }
-    private void onMovement(InputAction.CallbackContext context)
+    else
     {
-      if(context.performed)
-        {
-            moveKeyHeld = true;
-        }
-      else if(context.canceled)
-        {
-            moveKeyHeld = false;
-        }
-    }
-    private void onExit(InputAction.CallbackContext context)
-    {
-        Debug.Log("Exit");
-    }
-    private void FixedUpdate()
-    {
-        if(GameManager.Instance.IsPlayerTurn && moveKeyHeld)
-        {
-            MovePlayer();
-        }   
-    }
-    private void MovePlayer()
-    {
-       transform.position += (Vector3)controls.Player.Movement.ReadValue<Vector2>();
-       GameManager.Instance.EndPlayerTurn();
+        Debug.Log("Not enough skill points!");
+        return 0; // No damage dealt if not enough skill points
     }
 }
+
+
+
+
+
+
+}
+
+
+
+

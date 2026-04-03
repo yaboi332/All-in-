@@ -8,7 +8,7 @@ public class BattleManager : MonoBehaviour
     public GameObject enemyPrefab;
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
-    Unit playerUnit;
+    Player playerUnit;
     
     public PlayerAnimations playerAnimations;
     public EnemyAnimations enemyAnimations;
@@ -29,7 +29,7 @@ public class BattleManager : MonoBehaviour
     GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
     // Reset position to (0,0,0) relative to the station
     playerGO.transform.localPosition = Vector3.zero;
-    playerUnit = playerGO.GetComponent<Unit>();
+    playerUnit = playerGO.GetComponent<Player>();
     playerAnimations = playerGO.GetComponent<PlayerAnimations>();
     // Spawn Enemy and make them a child of the station
     GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
@@ -69,13 +69,28 @@ public class BattleManager : MonoBehaviour
     {
         if (state != BattleState.PLAYERTURN)
             return;
-        playerWeaponAttack();
+       bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.weaponAttack());
+       battleHUD.SetHp(playerUnit.health,enemyUnit.health);
+
+        //Check if the enemy is dead
+        if(isEnemyDead)
+        {
+            // End the battle
+            state = BattleState.WON;
+        }
+        else
+        {
+            state = BattleState.ENEMYTURN;
+                enemyTurn();
+        }
         
     }
 
      public void playerTurn()
     {
-        
+        playerUnit.skillPoints = playerUnit.MaxSkillPoints;
+
+    
     
     }
 
@@ -95,7 +110,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             state = BattleState.PLAYERTURN;
-                enemyTurn();
+                playerTurn();
         }
     }
     public void enemyTurn()

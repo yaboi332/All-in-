@@ -10,7 +10,7 @@ public class BattleHUD : MonoBehaviour
     public Slider playerHealthBar;
     public Slider enemyHealthBar;
 
-    public void SetHUD(Unit player, Unit enemy)
+    public void SetHUD(Player player, Unit enemy)
     {
         playerHealthBar.maxValue=player.maxHealth;
         playerHealthBar.value=player.health;
