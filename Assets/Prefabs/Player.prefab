@@ -159,6 +159,8 @@ MonoBehaviour:
   maxHealth: 100
   level: 1
   damage: 15
-  skillPoints: 3
+  skillPoints: 5
   MaxSkillPoints: 5
   playerAnimations: {fileID: 0}
+  attacks:
+  - {fileID: 11400000, guid: b9eb269794cdc604e8ca9aacf05b7da2, type: 2}

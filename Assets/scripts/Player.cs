@@ -7,20 +7,25 @@ public class Player : Unit
     public int MaxSkillPoints;
     public PlayerAnimations playerAnimations;
 
+    public Attacks[] attacks; // Array to hold the player's attacks
+
+     // Example of assigning an attack to the array
+
     void Start()
     {
+         // Example of assigning an attack to the array
         playerAnimations = GetComponent<PlayerAnimations>();
     }
 
     public int weaponAttack()
     {   
-        if (skillPoints >= 1)
+        if (skillPoints >= attacks[0].skillPointCost)
          {
             playerAnimations.Attack();
         // Example: weapon attack costs 1 skill point
-            skillPoints -= 1;
-            int damageDealt = damage; // Assuming playerUnit is accessible
-    
+            skillPoints -= attacks[0].skillPointCost;
+            int damageDealt = attacks[0].DealDamage(playerAnimations); // Assuming playerUnit is accessible
+            Debug.Log ("Player used " + attacks[0].attackName + " and dealt " + damageDealt + " damage!");
             return damageDealt;
         }
         else
