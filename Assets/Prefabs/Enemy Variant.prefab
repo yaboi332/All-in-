@@ -8,6 +8,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8221670182684261897, guid: c9c3f9b5da2cd224b8f24c65dd5d80a7, type: 3}
+      propertyPath: level
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8221670182684261897, guid: c9c3f9b5da2cd224b8f24c65dd5d80a7, type: 3}
+      propertyPath: damage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8221670182684261897, guid: c9c3f9b5da2cd224b8f24c65dd5d80a7, type: 3}
+      propertyPath: health
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8221670182684261897, guid: c9c3f9b5da2cd224b8f24c65dd5d80a7, type: 3}
+      propertyPath: unitName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: -8221670182684261897, guid: c9c3f9b5da2cd224b8f24c65dd5d80a7, type: 3}
+      propertyPath: maxHealth
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6804270971330302386, guid: c9c3f9b5da2cd224b8f24c65dd5d80a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -68,6 +88,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7730519920496508438, guid: c9c3f9b5da2cd224b8f24c65dd5d80a7, type: 3}
       insertIndex: -1
       addedObject: {fileID: -7253588481423732715}
+    - targetCorrespondingSourceObject: {fileID: 7730519920496508438, guid: c9c3f9b5da2cd224b8f24c65dd5d80a7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6974907137826316704}
   m_SourcePrefab: {fileID: 100100000, guid: c9c3f9b5da2cd224b8f24c65dd5d80a7, type: 3}
 --- !u!1 &5221742805636452358 stripped
 GameObject:
@@ -179,3 +202,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 264282795b94d0540bbaa876de56a95e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+--- !u!114 &6974907137826316704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5221742805636452358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21613c4f3083b24b88a8bfc6ade99f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  unitName: Enemy
+  health: 100
+  maxHealth: 100
+  level: 999
+  damage: 10
+  enemyAnimations: {fileID: 0}
+  attacks:
+  - {fileID: 11400000, guid: 7d439288f59dc624eb6d5968889c2b75, type: 2}

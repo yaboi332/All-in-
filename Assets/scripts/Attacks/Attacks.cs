@@ -1,10 +1,12 @@
+
 using UnityEngine;
 
 abstract public class Attacks : ScriptableObject
 {
     public string attackName;
     public int damage;
-    public char type; // 's' for strike, 'r' for ranged
+    public enum attackType { STRIKE, RANGED };
+    public attackType type;
     public int skillPointCost;
     public string description;
 
@@ -13,5 +15,15 @@ abstract public class Attacks : ScriptableObject
     {   
 
         return damage;
+    }
+
+    public virtual int DealDamage(EnemyAnimations enemyAnimations)
+    {   
+        return damage;
+    }
+
+    public attackType GetAttackType()
+    {
+        return type;
     }
 }

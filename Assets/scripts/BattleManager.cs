@@ -1,4 +1,5 @@
 using System.Collections;
+
 using UnityEngine;
 using UnityEngine.UI;
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, BUSY, WON, LOST }
@@ -15,7 +16,7 @@ public class BattleManager : MonoBehaviour
     public PlayerAnimations playerAnimations;
     public EnemyAnimations enemyAnimations;
 
-    Unit enemyUnit;
+    Enemy enemyUnit;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public BattleState state;
 
@@ -38,7 +39,7 @@ public class BattleManager : MonoBehaviour
     GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
     // Reset position to (0,0,0) relative to the station
     enemyGO.transform.localPosition = Vector3.zero;
-    enemyUnit = enemyGO.GetComponent<Unit>();
+    enemyUnit = enemyGO.GetComponent<Enemy>();
     enemyAnimations = enemyGO.GetComponent<EnemyAnimations>();
 // 3. Get the AI component (NEW)
         activeEnemyAI = enemyGO.GetComponent<EnemyAI>();
@@ -119,10 +120,18 @@ public class BattleManager : MonoBehaviour
         
     }
 
+    public void onParryButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+        playerUnit.strikeParry();
+        state = BattleState.PLAYERTURN;
+    }
+
      public void playerTurn()
     {
        state = BattleState.PLAYERTURN;
-        playerUnit.skillPoints = playerUnit.MaxSkillPoints;
+        playerUnit.refreshPlayerTurn();
     //currentActionsLeft = maxActionsPerTurn; // Reset actions to 3 (or whatever you set)
     Debug.Log("Player Turn Started. Actions: " + currentActionsLeft); 
     
@@ -131,8 +140,52 @@ public class BattleManager : MonoBehaviour
     private void enemyAttack()
     {
         // Damage the player
-        enemyAnimations.Attack();
-        bool isPlayerDead=playerUnit.TakeDamage(enemyUnit.damage);
+        bool isPlayerDead;
+        if(playerUnit.currentState != Player.playerState.IDLE)
+        {
+            if (playerUnit.strikeParryCheck(enemyUnit.attacks[0]))
+        {   enemyUnit.attacks[0].DealDamage(enemyAnimations);
+            double totalDamage = enemyUnit.attacks[0].damage * playerUnit.parryMultiplier;
+            int finalDamage = Mathf.RoundToInt((float)totalDamage);
+            isPlayerDead = enemyUnit.TakeDamage(finalDamage);
+            if(isPlayerDead)
+        {
+            // End the battle
+            state = BattleState.WON;
+            return;
+        }
+            
+        }
+        else
+        {
+             enemyUnit.attacks[0].DealDamage(enemyAnimations);
+            double totalDamage = enemyUnit.attacks[0].damage * playerUnit.parryMultiplier;
+            int finalDamage = Mathf.RoundToInt((float)totalDamage);
+            isPlayerDead = playerUnit.TakeDamage(finalDamage);
+             if(isPlayerDead)
+        {
+            // End the battle
+            state = BattleState.LOST;
+            return;
+        }
+        }
+        
+            
+        }
+
+        else
+        {
+           isPlayerDead=playerUnit.TakeDamage(enemyUnit.attacks[0].DealDamage(enemyAnimations));
+             if(isPlayerDead)
+        {
+            // End the battle
+            state = BattleState.LOST;
+            return;
+        } 
+        }
+
+        playerUnit.parryMultiplier = 0.0; // Reset parry multiplier after the attack
+        
         battleHUD.SetHp(playerUnit.health,enemyUnit.health);
 
         //Check if the enemy is dead
@@ -171,3 +224,5 @@ public void OnEndTurnButton()
 }
 
 }
+
+

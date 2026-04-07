@@ -695,6 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 482b0e886a0d6f64da1bb27c0982039f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleManager
+  maxActionsPerTurn: 2
   playerPrefab: {fileID: 1353679588199064836, guid: a5e3608ec0bb0c445905da5b0ec8a588, type: 3}
   enemyPrefab: {fileID: 5221742805636452358, guid: e8443e5d86e8a5f48a87f8e7d5424509, type: 3}
   playerBattleStation: {fileID: 244007708}
@@ -870,6 +871,34 @@ PrefabInstance:
     - target: {fileID: 2798534988596425821, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 504224687}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: onSkillButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BattleManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1138,6 +1167,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 504224687}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnEndTurnButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BattleManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1355,6 +1412,34 @@ PrefabInstance:
     - target: {fileID: 2798534988596425821, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 504224687}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: onParryButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BattleManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -7,7 +7,7 @@ public class CanonAttack1 : Attacks
     {
         attackName = "Canon Attack 1";
         damage = 10;
-        type = 'r';
+        type = attackType.RANGED;
         skillPointCost = 1;
         description = "A ranged cannon blast attack. 50% chance to hit twice.";
     }
