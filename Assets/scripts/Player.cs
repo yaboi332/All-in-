@@ -89,15 +89,15 @@ public class Player : Unit
 
 
 
-    public bool strikeParryCheck(Attacks incomingAttack)
+    public bool ParryCheck(Attacks incomingAttack)
     {
         
-         if(incomingAttack.GetAttackType() == Attacks.attackType.STRIKE)
+         if(incomingAttack.GetAttackType() == Attacks.attackType.STRIKE && currentState == playerState.STRIKE_PARRYING)
      {      
         return true;
         
         }
-        else if(incomingAttack.GetAttackType() == Attacks.attackType.RANGED)
+        else if(incomingAttack.GetAttackType() == Attacks.attackType.RANGED && currentState == playerState.RANGED_PARRYING)
         {
             return true;
         }

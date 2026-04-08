@@ -1,5 +1,5 @@
 using System.Collections;
-
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, BUSY, WON, LOST }
@@ -24,6 +24,7 @@ public class BattleManager : MonoBehaviour
     private EnemyAI activeEnemyAI;
 
     public PopUpManager popUpManager;
+    public ParrySelectWindow parrySelectWindow;
     void Start()
     {
         state = BattleState.START;
@@ -67,7 +68,7 @@ public class BattleManager : MonoBehaviour
         if(!playerUnit.skillPointCheck(playerUnit.attacks[0].skillPointCost))
         {   
             popUpManager.PopUp("Not enough skill points!");
-            Debug.Log("Not enough skill points!");
+            UnityEngine.Debug.Log("Not enough skill points!");
             return;
         }
 
@@ -98,7 +99,7 @@ public class BattleManager : MonoBehaviour
         if(!playerUnit.skillPointCheck(2)) // Assuming skill attack costs 2 skill points
         {   
             popUpManager.PopUp("Not enough skill points!");
-            Debug.Log("Not enough skill points!");
+            UnityEngine.Debug.Log("Not enough skill points!");
             return;
         }    
        bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.skillAttack());
@@ -122,18 +123,48 @@ public class BattleManager : MonoBehaviour
     {
         if (state != BattleState.PLAYERTURN)
             return;
-        popUpManager.PopUp("Player is preparing to parry!");
-        playerUnit.strikeParry();
+        if(!playerUnit.skillPointCheck(1)) // Assuming parry costs 1 skill point
+        {
+            popUpManager.PopUp("Not enough skill points to parry!");
+            UnityEngine.Debug.Log("Not enough skill points to parry!");
+            return;
+        }
+        parrySelectWindow.PopUp();
         state = BattleState.PLAYERTURN;
     }
 
+    public void onStrikeParryButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+        popUpManager.PopUp("Player is preparing to parry!");
+        playerUnit.strikeParry();
+        state = BattleState.PLAYERTURN;
+        parrySelectWindow.HidePopUp();
+    }
+
+
+    public void onRangedParryButton()
+    {
+        if (state != BattleState.PLAYERTURN)
+            return;
+        popUpManager.PopUp("Player is preparing to parry!");
+        playerUnit.rangedParry();
+        state = BattleState.PLAYERTURN;
+        parrySelectWindow.HidePopUp();
+    }
+
+    public void onCloseParrySelectButton()
+    {
+        parrySelectWindow.HidePopUp();
+    }
      public void playerTurn()
     {
        state = BattleState.PLAYERTURN;
         playerUnit.refreshPlayerTurn();
         popUpManager.PopUp("Player's Turn! Skill Points: " + playerUnit.skillPoints);
     //currentActionsLeft = maxActionsPerTurn; // Reset actions to 3 (or whatever you set)
-    Debug.Log("Player Turn Started. Actions: " + currentActionsLeft); 
+    UnityEngine.Debug.Log("Player Turn Started. Actions: " + currentActionsLeft); 
     
     }
 
@@ -143,11 +174,12 @@ public class BattleManager : MonoBehaviour
         bool isPlayerDead;
         if(playerUnit.currentState != Player.playerState.IDLE)
         {
-            if (playerUnit.strikeParryCheck(enemyUnit.attacks[0]))
+            if (playerUnit.ParryCheck(enemyUnit.attacks[0]))
         {   enemyUnit.attacks[0].DealDamage(enemyAnimations);
             double totalDamage = enemyUnit.attacks[0].damage * playerUnit.parryMultiplier;
             int finalDamage = Mathf.RoundToInt((float)totalDamage);
             popUpManager.PopUp("Player parried the attack and dealt " + finalDamage + " damage!");
+            UnityEngine.Debug.Log("Player parried the attack and dealt " + finalDamage + " damage!");
             isPlayerDead = enemyUnit.TakeDamage(finalDamage);
             if(isPlayerDead)
         {
@@ -163,6 +195,7 @@ public class BattleManager : MonoBehaviour
             double totalDamage = enemyUnit.attacks[0].damage * playerUnit.parryMultiplier;
             int finalDamage = Mathf.RoundToInt((float)totalDamage);
                 popUpManager.PopUp("Player failed to parry and took " + finalDamage + " damage!");
+                UnityEngine.Debug.Log("Player failed to parry and took " + finalDamage + " damage!");
             isPlayerDead = playerUnit.TakeDamage(finalDamage);
              if(isPlayerDead)
         {
@@ -175,8 +208,9 @@ public class BattleManager : MonoBehaviour
             
         }
 
-          
-        popUpManager.PopUp("Enemy used " + enemyUnit.attacks[0].attackName + " and dealt " + enemyUnit.attacks[0].damage + " damage!");
+        else
+        {
+             popUpManager.PopUp("Enemy used " + enemyUnit.attacks[0].attackName + " and dealt " + enemyUnit.attacks[0].damage + " damage!");
            isPlayerDead=playerUnit.TakeDamage(enemyUnit.attacks[0].DealDamage(enemyAnimations));
              if(isPlayerDead)
         {
@@ -184,6 +218,8 @@ public class BattleManager : MonoBehaviour
             state = BattleState.LOST;
             return;
         } 
+        }
+       
         
 
         playerUnit.parryMultiplier = 0.0; // Reset parry multiplier after the attack
@@ -199,7 +235,7 @@ public class BattleManager : MonoBehaviour
         else
         {
             state = BattleState.PLAYERTURN;
-            playerTurn();
+            
         }
 
                 
@@ -210,11 +246,19 @@ public class BattleManager : MonoBehaviour
         if (state != BattleState.ENEMYTURN)
             return;
            StartCoroutine(EnemyActionDelay());
+           //StartCouroutine(TurnDelay());
+           playerTurn();
+           
     }
     IEnumerator EnemyActionDelay()
 {
     yield return new WaitForSeconds(1.5f); // Give the player time to breathe
     enemyAttack();
+}
+
+    IEnumerator TurnDelay()
+{
+    yield return new WaitForSeconds(4f); // Give the player time to breathe
 }
 public void OnEndTurnButton()
 {
