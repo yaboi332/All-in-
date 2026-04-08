@@ -22,6 +22,8 @@ public class BattleManager : MonoBehaviour
 
     public BattleHUD battleHUD;
     private EnemyAI activeEnemyAI;
+
+    public PopUpManager popUpManager;
     void Start()
     {
         state = BattleState.START;
@@ -51,37 +53,25 @@ public class BattleManager : MonoBehaviour
         }
     battleHUD.SetHUD(playerUnit,enemyUnit);
 
-    state = BattleState.PLAYERTURN;
+    
     playerTurn(); 
 }       
 
-    private void playerWeaponAttack()
-    {
-        if (currentActionsLeft <= 0) return;
-        state = BattleState.BUSY;
-        // Damage the enemy
-        playerAnimations.Attack();
-        bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.damage);
-        battleHUD.SetHp(playerUnit.health,enemyUnit.health);
-
-        //Check if the enemy is dead
-        if(isEnemyDead)
-        {
-            // End the battle
-            state = BattleState.WON;
-        }
-        else
-        {
-           currentActionsLeft--;
-        state = BattleState.PLAYERTURN;
-        }
-    }
    
 
     public void onWeaponButton()
     {
         if (state != BattleState.PLAYERTURN)
             return;
+        
+        if(!playerUnit.skillPointCheck(playerUnit.attacks[0].skillPointCost))
+        {   
+            popUpManager.PopUp("Not enough skill points!");
+            Debug.Log("Not enough skill points!");
+            return;
+        }
+
+       popUpManager.PopUp("Player used " + playerUnit.attacks[0].attackName + " and dealt " + playerUnit.attacks[0].damage + " damage!"); 
        bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.weaponAttack());
        battleHUD.SetHp(playerUnit.health,enemyUnit.health);
 
@@ -101,8 +91,16 @@ public class BattleManager : MonoBehaviour
 
     public void onSkillButton()
     {
+        
+         popUpManager.PopUp("Player used " + playerUnit.attacks[0].attackName + " and dealt " + playerUnit.attacks[0].damage * 2 + " damage!");
         if (state != BattleState.PLAYERTURN)
             return;
+        if(!playerUnit.skillPointCheck(2)) // Assuming skill attack costs 2 skill points
+        {   
+            popUpManager.PopUp("Not enough skill points!");
+            Debug.Log("Not enough skill points!");
+            return;
+        }    
        bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.skillAttack());
        battleHUD.SetHp(playerUnit.health,enemyUnit.health);
 
@@ -124,6 +122,7 @@ public class BattleManager : MonoBehaviour
     {
         if (state != BattleState.PLAYERTURN)
             return;
+        popUpManager.PopUp("Player is preparing to parry!");
         playerUnit.strikeParry();
         state = BattleState.PLAYERTURN;
     }
@@ -132,6 +131,7 @@ public class BattleManager : MonoBehaviour
     {
        state = BattleState.PLAYERTURN;
         playerUnit.refreshPlayerTurn();
+        popUpManager.PopUp("Player's Turn! Skill Points: " + playerUnit.skillPoints);
     //currentActionsLeft = maxActionsPerTurn; // Reset actions to 3 (or whatever you set)
     Debug.Log("Player Turn Started. Actions: " + currentActionsLeft); 
     
@@ -147,6 +147,7 @@ public class BattleManager : MonoBehaviour
         {   enemyUnit.attacks[0].DealDamage(enemyAnimations);
             double totalDamage = enemyUnit.attacks[0].damage * playerUnit.parryMultiplier;
             int finalDamage = Mathf.RoundToInt((float)totalDamage);
+            popUpManager.PopUp("Player parried the attack and dealt " + finalDamage + " damage!");
             isPlayerDead = enemyUnit.TakeDamage(finalDamage);
             if(isPlayerDead)
         {
@@ -161,6 +162,7 @@ public class BattleManager : MonoBehaviour
              enemyUnit.attacks[0].DealDamage(enemyAnimations);
             double totalDamage = enemyUnit.attacks[0].damage * playerUnit.parryMultiplier;
             int finalDamage = Mathf.RoundToInt((float)totalDamage);
+                popUpManager.PopUp("Player failed to parry and took " + finalDamage + " damage!");
             isPlayerDead = playerUnit.TakeDamage(finalDamage);
              if(isPlayerDead)
         {
@@ -173,8 +175,8 @@ public class BattleManager : MonoBehaviour
             
         }
 
-        else
-        {
+          
+        popUpManager.PopUp("Enemy used " + enemyUnit.attacks[0].attackName + " and dealt " + enemyUnit.attacks[0].damage + " damage!");
            isPlayerDead=playerUnit.TakeDamage(enemyUnit.attacks[0].DealDamage(enemyAnimations));
              if(isPlayerDead)
         {
@@ -182,7 +184,7 @@ public class BattleManager : MonoBehaviour
             state = BattleState.LOST;
             return;
         } 
-        }
+        
 
         playerUnit.parryMultiplier = 0.0; // Reset parry multiplier after the attack
         
@@ -198,12 +200,13 @@ public class BattleManager : MonoBehaviour
         {
             state = BattleState.PLAYERTURN;
             playerTurn();
+        }
 
                 
-        }
+        
     }
     public void enemyTurn()
-    {
+    {   popUpManager.PopUp("Enemy's Turn!");
         if (state != BattleState.ENEMYTURN)
             return;
            StartCoroutine(EnemyActionDelay());

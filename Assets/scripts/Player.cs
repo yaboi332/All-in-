@@ -78,7 +78,14 @@ public class Player : Unit
         Debug.Log("PREPARE TO PARRY A STRIKE ATTACK!");
     }
 
-
+      public void rangedParry()
+    {
+        currentState= playerState.RANGED_PARRYING;
+        
+        parryMultiplier=1.0 + (0.1 * skillPoints); // Example: parry multiplier increases with skill points
+        skillPoints = 0;
+        Debug.Log("PREPARE TO PARRY A RANGED ATTACK!");
+    }
 
 
 
@@ -90,10 +97,21 @@ public class Player : Unit
         return true;
         
         }
-    else
+        else if(incomingAttack.GetAttackType() == Attacks.attackType.RANGED)
+        {
+            return true;
+        }
+   
+     else
      {  
         return false;
         }
+    }
+
+
+    public bool skillPointCheck(int cost)
+    {
+        return skillPoints >= cost;
     }
 
 
