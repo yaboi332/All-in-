@@ -7,11 +7,11 @@ public class PopUpManager : MonoBehaviour
     public GameObject popUpBox;
     public TMP_Text popUpText; 
 
-    public void PopUp(string text)
+    public void PopUp(string text,float delay=2f)
     {
         popUpBox.SetActive(true);
         popUpText.text = text;
-        StartCoroutine(HidePopUpAfterDelay(2f));
+        StartCoroutine(HidePopUpAfterDelay(delay));
     }
 
     private IEnumerator HidePopUpAfterDelay(float delay)

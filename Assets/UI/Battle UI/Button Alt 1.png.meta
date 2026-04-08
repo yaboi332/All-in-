@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8d3a40a7e4ebffd4d8984f849180caa9
+guid: 66df9115cbca7474b8ef94e8138b91a1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2691790032327130936
-    second: Outline Bar (1)_0
+      213: 7517875066401168527
+    second: Button Alt 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Outline Bar (1)_0
+      name: Button Alt 1_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 44
-        width: 104
-        height: 37
+        x: 3
+        y: 3
+        width: 26
+        height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 4, y: 4, z: 4, w: 4}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8c044313a37d4aad0800000000000000
-      internalID: -2691790032327130936
+      spriteID: f8c9b9e9a8bd45860800000000000000
+      internalID: 7517875066401168527
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 2a8e97f9f9624844dba57da888496b09
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Outline Bar (1)_0: -2691790032327130936
+      Button Alt 1_0: 7517875066401168527
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

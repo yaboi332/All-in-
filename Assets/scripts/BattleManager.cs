@@ -74,6 +74,7 @@ public class BattleManager : MonoBehaviour
 
        popUpManager.PopUp("Player used " + playerUnit.attacks[0].attackName + " and dealt " + playerUnit.attacks[0].damage + " damage!"); 
        bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.weaponAttack());
+       battleHUD.SetSP(playerUnit);
        battleHUD.SetHp(playerUnit.health,enemyUnit.health);
 
         //Check if the enemy is dead
@@ -102,7 +103,10 @@ public class BattleManager : MonoBehaviour
             UnityEngine.Debug.Log("Not enough skill points!");
             return;
         }    
+        
+    
        bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.skillAttack());
+       battleHUD.SetSP(playerUnit);
        battleHUD.SetHp(playerUnit.health,enemyUnit.health);
 
         //Check if the enemy is dead
@@ -141,6 +145,7 @@ public class BattleManager : MonoBehaviour
         playerUnit.strikeParry();
         state = BattleState.PLAYERTURN;
         parrySelectWindow.HidePopUp();
+        battleHUD.SetSP(playerUnit);
     }
 
 
@@ -152,6 +157,7 @@ public class BattleManager : MonoBehaviour
         playerUnit.rangedParry();
         state = BattleState.PLAYERTURN;
         parrySelectWindow.HidePopUp();
+        battleHUD.SetSP(playerUnit);
     }
 
     public void onCloseParrySelectButton()
@@ -163,8 +169,7 @@ public class BattleManager : MonoBehaviour
        state = BattleState.PLAYERTURN;
         playerUnit.refreshPlayerTurn();
         popUpManager.PopUp("Player's Turn! Skill Points: " + playerUnit.skillPoints);
-    //currentActionsLeft = maxActionsPerTurn; // Reset actions to 3 (or whatever you set)
-    UnityEngine.Debug.Log("Player Turn Started. Actions: " + currentActionsLeft); 
+        battleHUD.SetSP(playerUnit);
     
     }
 
@@ -172,13 +177,13 @@ public class BattleManager : MonoBehaviour
     {
         // Damage the player
         bool isPlayerDead;
-        if(playerUnit.currentState != Player.playerState.IDLE)
+        if(playerUnit.currentState == Player.playerState.STRIKE_PARRYING || playerUnit.currentState == Player.playerState.RANGED_PARRYING)
         {
             if (playerUnit.ParryCheck(enemyUnit.attacks[0]))
         {   enemyUnit.attacks[0].DealDamage(enemyAnimations);
             double totalDamage = enemyUnit.attacks[0].damage * playerUnit.parryMultiplier;
             int finalDamage = Mathf.RoundToInt((float)totalDamage);
-            popUpManager.PopUp("Player parried the attack and dealt " + finalDamage + " damage!");
+            popUpManager.PopUp("Player parried the attack and dealt " + finalDamage + " damage!",3f);
             UnityEngine.Debug.Log("Player parried the attack and dealt " + finalDamage + " damage!");
             isPlayerDead = enemyUnit.TakeDamage(finalDamage);
             if(isPlayerDead)
@@ -194,7 +199,7 @@ public class BattleManager : MonoBehaviour
              enemyUnit.attacks[0].DealDamage(enemyAnimations);
             double totalDamage = enemyUnit.attacks[0].damage * playerUnit.parryMultiplier;
             int finalDamage = Mathf.RoundToInt((float)totalDamage);
-                popUpManager.PopUp("Player failed to parry and took " + finalDamage + " damage!");
+                popUpManager.PopUp("Player failed to parry and took " + finalDamage + " damage!",3f);
                 UnityEngine.Debug.Log("Player failed to parry and took " + finalDamage + " damage!");
             isPlayerDead = playerUnit.TakeDamage(finalDamage);
              if(isPlayerDead)
@@ -246,8 +251,8 @@ public class BattleManager : MonoBehaviour
         if (state != BattleState.ENEMYTURN)
             return;
            StartCoroutine(EnemyActionDelay());
-           //StartCouroutine(TurnDelay());
-           playerTurn();
+           StartCoroutine(TurnDelay());
+           
            
     }
     IEnumerator EnemyActionDelay()
@@ -258,7 +263,8 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator TurnDelay()
 {
-    yield return new WaitForSeconds(4f); // Give the player time to breathe
+    yield return new WaitForSeconds(4f);
+    playerTurn(); // Give the player time to breathe
 }
 public void OnEndTurnButton()
 {
