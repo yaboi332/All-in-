@@ -1,3 +1,4 @@
+using System.Net;
 using UnityEngine;
 
 
@@ -11,6 +12,27 @@ using UnityEngine;
     public int maxHealth;
     public int level;
     public int damage;
+    public StatusManager statusManager;
+    
+    
+    
+    
+    public virtual void Init()
+{
+    statusManager = GetComponent<StatusManager>();
+}
+
+    protected virtual  void Start()
+    {
+        /*statusManager = GetComponent<StatusManager>();
+        if(statusManager == null)
+        {
+            Debug.LogError("No StatusManager component found on " + gameObject.name);
+            statusManager = gameObject.AddComponent<StatusManager>();
+        }
+        */
+    }
+     
 
     public bool TakeDamage(int dmg)
     {

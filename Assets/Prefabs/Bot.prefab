@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6403394774583829244}
   - component: {fileID: 2736448165874408741}
   - component: {fileID: 4645732159101466512}
+  - component: {fileID: -5446007481675957412}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Untagged
@@ -145,6 +146,19 @@ MonoBehaviour:
   maxHealth: 100
   level: 1
   damage: 10
+  statusManager: {fileID: -5446007481675957412}
   enemyAnimations: {fileID: 0}
   attacks:
   - {fileID: 11400000, guid: 7d439288f59dc624eb6d5968889c2b75, type: 2}
+--- !u!114 &-5446007481675957412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5739805691732268414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55fe975bf699b8845a4e0ad8fe6abb0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusManager

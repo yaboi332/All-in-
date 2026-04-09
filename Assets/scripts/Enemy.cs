@@ -3,10 +3,21 @@ using UnityEngine;
 public class Enemy : Unit
 {
     
-    public EnemyAnimations enemyAnimations;
+    //public EnemyAnimations enemyAnimations;
     public Attacks[] attacks; // Array to hold the enemy's attacks
+    
 
-     public int attack()
+// Start is called once before the first execution of Update after the MonoBehaviour is created
+    protected override void Start()
+    {
+        base.Start();
+        //enemyAnimations = GetComponent<EnemyAnimations>();
+       // statusmanger = GetComponent<StatusManager>();
+        
+    }
+
+
+     public int attack(EnemyAnimations enemyAnimations)
     {   
     
             if (attacks.Length == 0)
@@ -23,12 +34,7 @@ public class Enemy : Unit
     
     
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
+    
     // Update is called once per frame
     void Update()
     {

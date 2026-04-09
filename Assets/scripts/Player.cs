@@ -15,10 +15,13 @@ public class Player : Unit
 
      // Example of assigning an attack to the array
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
          // Example of assigning an attack to the array
         playerAnimations = GetComponent<PlayerAnimations>();
+       // statusManager = GetComponent<StatusManager>();
+         // Initialize the array to hold two attacks
         currentState = playerState.IDLE;
         parryMultiplier = 0.0; // Example parry multiplier
     }
@@ -30,14 +33,14 @@ public class Player : Unit
         parryMultiplier = 0.0; // Reset parry multiplier at the start of the turn
     }
 
-    public int weaponAttack(EnemyAnimations enemyAnimations)
+    public int weaponAttack(EnemyAnimations enemyAnimations,StatusManager enemyStatusManager)
     {   
         if (skillPoints >= attacks[0].skillPointCost)
          {
             
         // Example: weapon attack costs 1 skill point
             skillPoints -= attacks[0].skillPointCost;
-            int damageDealt = attacks[0].DealDamage(playerAnimations,enemyAnimations); // Assuming playerUnit is accessible
+            int damageDealt = attacks[0].DealDamage(playerAnimations,enemyAnimations,enemyStatusManager); // Assuming playerUnit is accessible
             Debug.Log ("Player used " + attacks[0].attackName + " and dealt " + damageDealt + " damage!");
             return damageDealt;
         }
@@ -50,19 +53,21 @@ public class Player : Unit
     }
 
 
-    public int skillAttack(EnemyAnimations enemyAnimations)
+    public int skillAttack(EnemyAnimations enemyAnimations, StatusManager enemyStatusManager)
     {
-        if (skillPoints >= 2)
-        {  
-             playerAnimations.Attack(enemyAnimations);
-            skillPoints -= 2; // Example: skill attack costs 2 skill points
-            int damageDealt = damage * 2; // Example: skill attack does double damage
+        if (skillPoints >= attacks[1].skillPointCost)
+         {
+            
+        // Example: weapon attack costs 1 skill point
+            skillPoints -= attacks[1].skillPointCost;
+            int damageDealt = attacks[1].DealDamage(playerAnimations,enemyAnimations,enemyStatusManager); // Assuming playerUnit is accessible
+            Debug.Log ("Player used " + attacks[1].attackName + "dealt " + damageDealt + " damage!");
             return damageDealt;
-     }
+        }
         else
         {
             Debug.Log("Not enough skill points!");
-         return 0; // No damage dealt if not enough skill points
+            return 0; // No damage dealt if not enough skill points
         }
     }
 

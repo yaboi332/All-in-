@@ -14,7 +14,7 @@ public class CanonAttack1 : Attacks
 
 
     override
-    public int DealDamage(PlayerAnimations playerAnimations,EnemyAnimations enemyAnimations)
+    public int DealDamage(PlayerAnimations playerAnimations,EnemyAnimations enemyAnimations,StatusManager enemyStatusManager)
     {
         int randomValue = Random.Range(0, 101); // Random value between 0 and 100
         

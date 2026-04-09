@@ -10,11 +10,23 @@ abstract public class Attacks : ScriptableObject
     public int skillPointCost;
     public string description;
 
-    
-    public virtual int DealDamage(PlayerAnimations playerAnimations,EnemyAnimations enemyAnimations)
-    {   
+    public StatusEffect[] statusEffects; // Array to hold any status effects this attack may apply
 
-        return damage;
+    
+   
+
+    public virtual int DealDamage(PlayerAnimations playerAnimations,EnemyAnimations enemyAnimations,StatusManager enemyStatusManager)
+    {   
+        int damageDealt = damage;
+        foreach (StatusEffect effect in statusEffects)
+        {
+            if (effect != null)
+            {
+                enemyStatusManager.ApplyStatusEffect(effect);
+                Debug.Log("Applied " + effect.name + " to the enemy!");
+            }
+        }
+        return damageDealt;
     }
 
     public virtual int DealDamage(EnemyAnimations enemyAnimations)

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2516835804476345506}
   - component: {fileID: 8422192950818031091}
   - component: {fileID: -208466451826451234}
+  - component: {fileID: 458289823678922476}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -159,8 +160,24 @@ MonoBehaviour:
   maxHealth: 100
   level: 1
   damage: 15
+  statusManager: {fileID: 458289823678922476}
   skillPoints: 5
   MaxSkillPoints: 5
   playerAnimations: {fileID: 0}
+  currentState: 0
+  parryMultiplier: 0
   attacks:
   - {fileID: 11400000, guid: b9eb269794cdc604e8ca9aacf05b7da2, type: 2}
+  - {fileID: 11400000, guid: a00680504e6670d449ae6bc162291f65, type: 2}
+--- !u!114 &458289823678922476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353679588199064836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55fe975bf699b8845a4e0ad8fe6abb0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StatusManager

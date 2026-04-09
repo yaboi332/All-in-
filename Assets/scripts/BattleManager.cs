@@ -37,12 +37,14 @@ public class BattleManager : MonoBehaviour
     // Reset position to (0,0,0) relative to the station
     playerGO.transform.localPosition = Vector3.zero;
     playerUnit = playerGO.GetComponent<Player>();
+    playerUnit.Init();
     playerAnimations = playerGO.GetComponent<PlayerAnimations>();
     // Spawn Enemy and make them a child of the station
     GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
     // Reset position to (0,0,0) relative to the station
     enemyGO.transform.localPosition = Vector3.zero;
     enemyUnit = enemyGO.GetComponent<Enemy>();
+    enemyUnit.Init();
     enemyAnimations = enemyGO.GetComponent<EnemyAnimations>();
 // 3. Get the AI component (NEW)
         activeEnemyAI = enemyGO.GetComponent<EnemyAI>();
@@ -73,7 +75,7 @@ public class BattleManager : MonoBehaviour
         }
 
        popUpManager.PopUp("Player used " + playerUnit.attacks[0].attackName + " and dealt " + playerUnit.attacks[0].damage + " damage!"); 
-       bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.weaponAttack(enemyAnimations));
+       bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.weaponAttack(enemyAnimations,enemyUnit.statusManager));
        battleHUD.SetSP(playerUnit);
        battleHUD.SetHp(playerUnit.health,enemyUnit.health);
 
@@ -94,10 +96,10 @@ public class BattleManager : MonoBehaviour
     public void onSkillButton()
     {
         
-         popUpManager.PopUp("Player used " + playerUnit.attacks[0].attackName + " and dealt " + playerUnit.attacks[0].damage * 2 + " damage!");
+         popUpManager.PopUp("Player used " + playerUnit.attacks[1].attackName + " and dealt " + playerUnit.attacks[1].damage + " damage!");
         if (state != BattleState.PLAYERTURN)
             return;
-        if(!playerUnit.skillPointCheck(2)) // Assuming skill attack costs 2 skill points
+        if(!playerUnit.skillPointCheck(playerUnit.attacks[1].skillPointCost)) // Assuming skill attack costs 2 skill points
         {   
             popUpManager.PopUp("Not enough skill points!");
             UnityEngine.Debug.Log("Not enough skill points!");
@@ -105,7 +107,7 @@ public class BattleManager : MonoBehaviour
         }    
         
     
-       bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.skillAttack(enemyAnimations));
+       bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.skillAttack(enemyAnimations,enemyUnit.statusManager));
        battleHUD.SetSP(playerUnit);
        battleHUD.SetHp(playerUnit.health,enemyUnit.health);
 
@@ -167,6 +169,9 @@ public class BattleManager : MonoBehaviour
      public void playerTurn()
     {
        state = BattleState.PLAYERTURN;
+        
+        playerUnit.statusManager.tickStatusEffects(playerUnit);
+        playerUnit.statusManager.turnStartStatusEffects(playerUnit);
         playerUnit.refreshPlayerTurn();
         popUpManager.PopUp("Player's Turn! Skill Points: " + playerUnit.skillPoints);
         battleHUD.SetSP(playerUnit);
@@ -250,6 +255,8 @@ public class BattleManager : MonoBehaviour
     {   popUpManager.PopUp("Enemy's Turn!");
         if (state != BattleState.ENEMYTURN)
             return;
+            enemyUnit.statusManager.tickStatusEffects(enemyUnit);
+            enemyUnit.statusManager.turnStartStatusEffects(enemyUnit);
            StartCoroutine(EnemyActionDelay());
            StartCoroutine(TurnDelay());
            
