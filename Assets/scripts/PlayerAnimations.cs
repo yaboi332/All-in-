@@ -9,9 +9,10 @@ public class PlayerAnimations : MonoBehaviour
         anim=GetComponent<Animator>();
     }
     
-    public void Attack()
+    public void Attack(EnemyAnimations enemyAnimations)
     {
         anim.SetBool("isAttacking", true);
+        enemyAnimations.Hurt();
     
     }
 

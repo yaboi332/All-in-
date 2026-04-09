@@ -30,14 +30,14 @@ public class Player : Unit
         parryMultiplier = 0.0; // Reset parry multiplier at the start of the turn
     }
 
-    public int weaponAttack()
+    public int weaponAttack(EnemyAnimations enemyAnimations)
     {   
         if (skillPoints >= attacks[0].skillPointCost)
          {
-            playerAnimations.Attack();
+            
         // Example: weapon attack costs 1 skill point
             skillPoints -= attacks[0].skillPointCost;
-            int damageDealt = attacks[0].DealDamage(playerAnimations); // Assuming playerUnit is accessible
+            int damageDealt = attacks[0].DealDamage(playerAnimations,enemyAnimations); // Assuming playerUnit is accessible
             Debug.Log ("Player used " + attacks[0].attackName + " and dealt " + damageDealt + " damage!");
             return damageDealt;
         }
@@ -50,11 +50,11 @@ public class Player : Unit
     }
 
 
-    public int skillAttack()
+    public int skillAttack(EnemyAnimations enemyAnimations)
     {
         if (skillPoints >= 2)
         {  
-             playerAnimations.Attack();
+             playerAnimations.Attack(enemyAnimations);
             skillPoints -= 2; // Example: skill attack costs 2 skill points
             int damageDealt = damage * 2; // Example: skill attack does double damage
             return damageDealt;

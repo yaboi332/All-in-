@@ -11,7 +11,7 @@ abstract public class Attacks : ScriptableObject
     public string description;
 
     
-    public virtual int DealDamage(PlayerAnimations playerAnimations)
+    public virtual int DealDamage(PlayerAnimations playerAnimations,EnemyAnimations enemyAnimations)
     {   
 
         return damage;

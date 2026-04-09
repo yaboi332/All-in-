@@ -22,6 +22,18 @@ public class EnemyAnimations : MonoBehaviour
     
     }
 
+    public void Hurt()
+    {
+        anim.SetBool("isHurt", true);
+    
+    }
+
+    public void FinishHurt()
+    {
+        anim.SetBool("isHurt", false);
+    
+    }
+
     public void Dead()
     {
         anim.SetBool("isDead", true);

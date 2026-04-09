@@ -73,7 +73,7 @@ public class BattleManager : MonoBehaviour
         }
 
        popUpManager.PopUp("Player used " + playerUnit.attacks[0].attackName + " and dealt " + playerUnit.attacks[0].damage + " damage!"); 
-       bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.weaponAttack());
+       bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.weaponAttack(enemyAnimations));
        battleHUD.SetSP(playerUnit);
        battleHUD.SetHp(playerUnit.health,enemyUnit.health);
 
@@ -81,7 +81,7 @@ public class BattleManager : MonoBehaviour
         if(isEnemyDead)
         {
             // End the battle
-            state = BattleState.WON;
+            enemyDefeated();
         }
         else
         {
@@ -105,7 +105,7 @@ public class BattleManager : MonoBehaviour
         }    
         
     
-       bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.skillAttack());
+       bool isEnemyDead=enemyUnit.TakeDamage(playerUnit.skillAttack(enemyAnimations));
        battleHUD.SetSP(playerUnit);
        battleHUD.SetHp(playerUnit.health,enemyUnit.health);
 
@@ -113,7 +113,7 @@ public class BattleManager : MonoBehaviour
         if(isEnemyDead)
         {
             // End the battle
-            state = BattleState.WON;
+            enemyDefeated();
         }
         else
         {
@@ -189,7 +189,7 @@ public class BattleManager : MonoBehaviour
             if(isPlayerDead)
         {
             // End the battle
-            state = BattleState.WON;
+            enemyDefeated();
             return;
         }
             
@@ -276,6 +276,12 @@ public void OnEndTurnButton()
     }
 }
 
+public void enemyDefeated()
+{
+    state = BattleState.WON;
+    enemyAnimations.Dead();
+    popUpManager.PopUp("Enemy Defeated! You Win!", 5f);
+}
 }
 
 
