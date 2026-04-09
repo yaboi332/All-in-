@@ -21,4 +21,10 @@ public class EnemyAnimations : MonoBehaviour
         anim.SetBool("isAttacking", false);
     
     }
+
+    public void Dead()
+    {
+        anim.SetBool("isDead", true);
+    
+    }
 }

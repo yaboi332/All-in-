@@ -263,7 +263,7 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator TurnDelay()
 {
-    yield return new WaitForSeconds(4f);
+    yield return new WaitForSeconds(5f);
     playerTurn(); // Give the player time to breathe
 }
 public void OnEndTurnButton()
