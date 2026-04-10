@@ -72,7 +72,12 @@ public class Player : Unit
     }
 
 
-
+    public void Heal(int amount)
+    {
+        health += amount;
+        if (health > maxHealth)
+            health = maxHealth;
+    }
 
     public void strikeParry()
     {

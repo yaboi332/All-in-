@@ -220,7 +220,7 @@ public class BattleManager : MonoBehaviour
 
         else
         {
-             popUpManager.PopUp("Enemy used " + enemyUnit.attacks[0].attackName + " and dealt " + enemyUnit.attacks[0].damage + " damage!");
+             popUpManager.PopUp("Enemy used " + enemyUnit.attacks[0].attackName + " and dealt " + enemyUnit.attacks[0].damage + " damage!",3f);
            isPlayerDead=playerUnit.TakeDamage(enemyUnit.attacks[0].DealDamage(enemyAnimations));
              if(isPlayerDead)
         {
@@ -255,8 +255,8 @@ public class BattleManager : MonoBehaviour
     {   popUpManager.PopUp("Enemy's Turn!");
         if (state != BattleState.ENEMYTURN)
             return;
-            enemyUnit.statusManager.tickStatusEffects(enemyUnit);
-            enemyUnit.statusManager.turnStartStatusEffects(enemyUnit);
+            StartCoroutine(StatusEffectDelay());
+            
            StartCoroutine(EnemyActionDelay());
            StartCoroutine(TurnDelay());
            
@@ -264,9 +264,19 @@ public class BattleManager : MonoBehaviour
     }
     IEnumerator EnemyActionDelay()
 {
-    yield return new WaitForSeconds(1.5f); // Give the player time to breathe
+    yield return new WaitForSeconds(3f); // Give the player time to breathe
     enemyAttack();
 }
+
+    IEnumerator StatusEffectDelay()
+    {
+    yield return new WaitForSeconds(1.5f); // Give the player time to breathe
+    popUpManager.PopUp("Enemy took burn damage!");
+    enemyUnit.statusManager.tickStatusEffects(enemyUnit);
+    enemyAnimations.Hurt();
+    enemyUnit.statusManager.turnStartStatusEffects(enemyUnit);
+    battleHUD.SetHp(playerUnit.health,enemyUnit.health);
+    }
 
     IEnumerator TurnDelay()
 {
@@ -288,6 +298,18 @@ public void enemyDefeated()
     state = BattleState.WON;
     enemyAnimations.Dead();
     popUpManager.PopUp("Enemy Defeated! You Win!", 5f);
+}
+
+    public void OnItemButton()
+{
+    if (state != BattleState.PLAYERTURN)
+        return;
+        int healAmount = 20;
+    playerUnit.Heal(healAmount);
+    battleHUD.SetHp(playerUnit.health, enemyUnit.health);
+    // Implement item usage logic here
+    popUpManager.PopUp("Player used an item and healed for " + healAmount +"!", 3f);
+    //Debug.Log("Player used an item and healed for " + healAmount);
 }
 }
 
