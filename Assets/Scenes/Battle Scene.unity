@@ -1749,6 +1749,37 @@ RectTransform:
   m_AnchoredPosition: {x: 3, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &664616674 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1583022475973261596, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+  m_PrefabInstance: {fileID: 873700832}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &664616675 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+  m_PrefabInstance: {fileID: 873700832}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664616674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!114 &664616678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664616674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ed4fe92f6f6ed49ad47034f70f8dea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  button: {fileID: 664616675}
+  buttonText: {fileID: 1676900339}
+  battleManager: {fileID: 504224687}
 --- !u!1001 &680429082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2161,11 +2192,19 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 504224687}
     - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
@@ -2177,13 +2216,20 @@ PrefabInstance:
       value: BattleManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BattleManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5377775568081759595, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1583022475973261596, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 664616678}
   m_SourcePrefab: {fileID: 100100000, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
 --- !u!1001 &990920331
 PrefabInstance:
@@ -3372,6 +3418,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 791945760aaeefe44bfb69029ce3eecb, type: 3}
+--- !u!114 &1676900339 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1474603860369788336, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
+  m_PrefabInstance: {fileID: 873700832}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!224 &1712873595 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3933499014521647118, guid: a055a085b4a5fad43bbdf42bc1d26642, type: 3}
@@ -4141,6 +4198,7 @@ MonoBehaviour:
   enemyHealthBar: {fileID: 1911988910}
   skillPointBar: {fileID: 1497338080}
   skillPointText: {fileID: 1178621293}
+  endTurnButton: {fileID: 664616678}
 --- !u!224 &2053664435 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2798534988596425821, guid: 8d91ec23ab56a774796c83b7dd8b1421, type: 3}
