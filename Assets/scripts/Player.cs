@@ -13,6 +13,7 @@ public class Player : Unit
 
     public Attacks[] attacks; // Array to hold the player's attacks
     public ItemInstance[] items; // Array to hold the player's items
+    /*
     private ItemManager itemManager; // Instance of the ItemManager
     
     public override void Init()
@@ -25,6 +26,7 @@ public class Player : Unit
             itemManager = gameObject.AddComponent<ItemManager>();
         }
     }
+    */
 
      // Example of assigning an attack to the array
 

@@ -25,6 +25,8 @@ public class BattleManager : MonoBehaviour
 
     public PopUpManager popUpManager;
     public ParrySelectWindow parrySelectWindow;
+
+    public InfoWindow infoWindow;
     void Start()
     {
         state = BattleState.START;
@@ -302,11 +304,28 @@ public void enemyDefeated()
 
     public void OnItemButton()
 {
+    if (state != BattleState.PLAYERTURN)
+        return;
    playerUnit.UseItem(playerUnit.items[0],popUpManager); // Assuming the first item in the array is the one you want to use
      battleHUD.SetHp(playerUnit.health,enemyUnit.health);
      battleHUD.SetSP(playerUnit);
     //Debug.Log("Player used an item and healed for " + healAmount);
 }
+
+public void OnPlayerInfoButton()
+{
+    infoWindow.ShowPlayerInfo(playerUnit);
+}
+
+public void OnEnemyInfoButton()
+{
+    infoWindow.ShowEnemyInfo(enemyUnit);
+
+}
+public void onCloseInfoButton()
+    {
+        infoWindow.HideInfo();
+    }
 }
 
 
