@@ -75,6 +75,21 @@ List<StatusEffectInstance> activeStatusEffects = new List<StatusEffectInstance>(
         activeStatusEffects.Clear();
     }
 
+    public string displayStatusEffects()
+    {
+        string statusInfo = "";
+        if(activeStatusEffects.Count == 0)
+        {
+            return "N/A";
+        }
+        foreach(var instance in activeStatusEffects)
+        {
+            if(instance != null)
+            statusInfo +="\n"+instance.effect.effectName + " | " + instance.currentStacks + " Stack(s)| " + instance.currentTurnDuration + " turns";
+        }
+        return statusInfo;
+    }
+
 
 
     

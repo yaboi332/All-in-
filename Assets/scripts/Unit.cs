@@ -12,6 +12,7 @@ using UnityEngine;
     public int maxHealth;
     public int level;
     public int damage;
+    public string description;
     public StatusManager statusManager;
     
     

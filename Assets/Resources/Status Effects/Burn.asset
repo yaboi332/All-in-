@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb7c3559a43c2841bbc862bd4ba2db2, type: 3}
   m_Name: Burn
   m_EditorClassIdentifier: Assembly-CSharp::Burn
-  name: Burn
+  type: 0
+  effectName: Burn
   description: Takes damage over time for a few turns.
-  currentTurnDuration: 3
   maxTurnDuration: 3
   damageTick: 5
-  currentStacks: 1
   maxStacks: 3

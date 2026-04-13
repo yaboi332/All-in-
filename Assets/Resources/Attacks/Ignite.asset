@@ -18,4 +18,4 @@ MonoBehaviour:
   skillPointCost: 2
   description: Launches a fiery projectile that inflicts burn on hit.
   statusEffects:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: dffddb9cc5902b2438b967718f39f67f, type: 2}
