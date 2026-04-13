@@ -12,6 +12,19 @@ public class Player : Unit
     public double parryMultiplier;
 
     public Attacks[] attacks; // Array to hold the player's attacks
+    public ItemInstance[] items; // Array to hold the player's items
+    private ItemManager itemManager; // Instance of the ItemManager
+    
+    public override void Init()
+    {
+        base.Init();
+        itemManager = GetComponent<ItemManager>();
+        if (itemManager == null)
+        {
+            Debug.LogError("No ItemManager component found on " + gameObject.name);
+            itemManager = gameObject.AddComponent<ItemManager>();
+        }
+    }
 
      // Example of assigning an attack to the array
 
@@ -24,6 +37,9 @@ public class Player : Unit
          // Initialize the array to hold two attacks
         currentState = playerState.IDLE;
         parryMultiplier = 0.0; // Example parry multiplier
+
+
+        
     }
 
     public void refreshPlayerTurn()
@@ -72,11 +88,25 @@ public class Player : Unit
     }
 
 
-    public void Heal(int amount)
+    public void UseItem(ItemInstance itemInstance,PopUpManager popUpManager, Unit enemyUnit = null)
     {
-        health += amount;
-        if (health > maxHealth)
-            health = maxHealth;
+        if (itemInstance!=null && itemInstance.RemainingUses > 0)
+        {
+            if(itemInstance.item.GetTypeOfItem() == Item.ItemType.Heal || itemInstance.item.GetTypeOfItem() == Item.ItemType.Buff)
+            { // If the item is a Heal or Buff type, use it on self
+                itemInstance.item.UseItemSelf(this, itemInstance);
+                popUpManager.PopUp("Used " + itemInstance.item.itemName +". "+itemInstance.RemainingUses+" uses remaining.", 2.0f);
+             }
+             else
+            {
+                itemInstance.item.UseItemTarget(this, enemyUnit, itemInstance);
+            }
+        }
+        else
+        {
+            Debug.Log("Item cannot be used. Either it's null or has no remaining uses.");
+            popUpManager.PopUp("Cannot use " + itemInstance.item.itemName + ". No remaining uses!", 2.0f);
+        }
     }
 
     public void strikeParry()

@@ -302,13 +302,9 @@ public void enemyDefeated()
 
     public void OnItemButton()
 {
-    if (state != BattleState.PLAYERTURN)
-        return;
-        int healAmount = 20;
-    playerUnit.Heal(healAmount);
-    battleHUD.SetHp(playerUnit.health, enemyUnit.health);
-    // Implement item usage logic here
-    popUpManager.PopUp("Player used an item and healed for " + healAmount +"!", 3f);
+   playerUnit.UseItem(playerUnit.items[0],popUpManager); // Assuming the first item in the array is the one you want to use
+     battleHUD.SetHp(playerUnit.health,enemyUnit.health);
+     battleHUD.SetSP(playerUnit);
     //Debug.Log("Player used an item and healed for " + healAmount);
 }
 }
