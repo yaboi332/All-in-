@@ -12,6 +12,8 @@ public class BattleHUD : MonoBehaviour
     public Slider enemyHealthBar;
     public Slider skillPointBar;
     public TMP_Text skillPointText;
+    public EndTurnButton endTurnButton;
+    
 
     public void SetHUD(Player player, Unit enemy)
     {

@@ -300,6 +300,8 @@ public void enemyDefeated()
     state = BattleState.WON;
     enemyAnimations.Dead();
     popUpManager.PopUp("Enemy Defeated! You Win!", 5f);
+    battleHUD.endTurnButton.SwitchToContinue();
+    
 }
 
     public void OnItemButton()
@@ -313,12 +315,16 @@ public void enemyDefeated()
 }
 
 public void OnPlayerInfoButton()
-{
+{   
+    if(state != BattleState.PLAYERTURN)
+        return;
     infoWindow.ShowPlayerInfo(playerUnit);
 }
 
 public void OnEnemyInfoButton()
 {
+    if(state != BattleState.PLAYERTURN)
+        return;
     infoWindow.ShowEnemyInfo(enemyUnit);
 
 }
@@ -326,6 +332,15 @@ public void onCloseInfoButton()
     {
         infoWindow.HideInfo();
     }
+
+public void OnContinueButton()
+{
+    if (state == BattleState.WON)
+    {
+        // Load the next scene or return to the main menu
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Battle Scene");
+    }
+}
 }
 
 
