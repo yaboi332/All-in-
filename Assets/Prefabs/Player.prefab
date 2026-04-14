@@ -160,6 +160,7 @@ MonoBehaviour:
   maxHealth: 100
   level: 1
   damage: 15
+  description: 
   statusManager: {fileID: 458289823678922476}
   skillPoints: 5
   MaxSkillPoints: 5
@@ -169,6 +170,7 @@ MonoBehaviour:
   attacks:
   - {fileID: 11400000, guid: b9eb269794cdc604e8ca9aacf05b7da2, type: 2}
   - {fileID: 11400000, guid: a00680504e6670d449ae6bc162291f65, type: 2}
+  - {fileID: 0}
   items:
   - item: {fileID: 11400000, guid: 5c64064a17c04f74c92dbc264e8dbff9, type: 2}
     RemainingUses: 3
