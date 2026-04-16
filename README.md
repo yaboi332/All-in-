@@ -83,4 +83,6 @@ Turns initially switched instantly, making gameplay feel unnatural.
 - Improve balancing and overall polish  
 
 ---
-
+## Try It Out
+-Open the Repository through the Unity Engine
+-Press Files ->Build and Run
