@@ -4,10 +4,10 @@ using System.Collections.Generic;
 public class StatusManager : MonoBehaviour
 {
 
-List<StatusEffectInstance> activeStatusEffects = new List<StatusEffectInstance>();// Array to hold active status effects on the unit
+public List<StatusEffectInstance> activeStatusEffects = new List<StatusEffectInstance>();// Array to hold active status effects on the unit
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    
+public int statusTotalDamage=0;
     public void ApplyStatusEffect(StatusEffect newEffect)
     {   
         foreach (var instance in activeStatusEffects)
@@ -42,6 +42,7 @@ List<StatusEffectInstance> activeStatusEffects = new List<StatusEffectInstance>(
             {   
                 if(instance.currentTurnDuration > 0)
                 instance.effect.OnTick(unit, instance);
+                statusTotalDamage += instance.effect.damageTick*instance.currentStacks;
             }
         }
     }

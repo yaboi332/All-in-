@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,6 +33,10 @@ public void EndPlayerTurn()
     {
         yield return new WaitForSeconds(time);
         isPlayerTurn = true;
+    }
+public void StartNewGame()
+    {
+        SceneManager.LoadScene("BattleScene");
     }
 
    

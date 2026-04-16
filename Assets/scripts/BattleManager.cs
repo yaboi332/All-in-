@@ -27,6 +27,8 @@ public class BattleManager : MonoBehaviour
     public ParrySelectWindow parrySelectWindow;
 
     public InfoWindow infoWindow;
+
+     
     void Start()
     {
         state = BattleState.START;
@@ -257,11 +259,13 @@ public class BattleManager : MonoBehaviour
     {   popUpManager.PopUp("Enemy's Turn!");
         if (state != BattleState.ENEMYTURN)
             return;
+        StartCoroutine(EnemyTurnCoroutine());
+            /*
             StartCoroutine(StatusEffectDelay());
             
            StartCoroutine(EnemyActionDelay());
            StartCoroutine(TurnDelay());
-           
+           */
            
     }
     IEnumerator EnemyActionDelay()
@@ -340,6 +344,44 @@ public void OnContinueButton()
         // Load the next scene or return to the main menu
         UnityEngine.SceneManagement.SceneManager.LoadScene("Battle Scene");
     }
+}
+
+IEnumerator EnemyTurnCoroutine()
+{
+    popUpManager.PopUp("Enemy's Turn!");
+
+    yield return new WaitForSeconds(1f);
+
+    
+    if (enemyUnit.statusManager.activeStatusEffects.Count > 0)
+    {
+        
+        enemyUnit.statusManager.tickStatusEffects(enemyUnit);
+        popUpManager.PopUp("Enemy took " + enemyUnit.statusManager.statusTotalDamage + " burn damage!", 2f);
+        enemyAnimations.Hurt();
+        enemyUnit.statusManager.turnStartStatusEffects(enemyUnit);
+        battleHUD.SetHp(playerUnit.health, enemyUnit.health);
+
+        
+        if (enemyUnit.health <= 0)
+        {   
+            yield return new WaitForSeconds(1.5f);
+            enemyDefeated();
+            yield break; // Exit the coroutine if the enemy is defeated
+        }
+
+        yield return new WaitForSeconds(1.5f);
+    }
+
+    // THEN ATTACK
+    yield return new WaitForSeconds(1f);
+    enemyAttack();
+
+    // END TURN DELAY (if needed)
+    yield return new WaitForSeconds(1f);
+    enemyUnit.statusManager.statusTotalDamage = 0; // Reset the total damage for the next turn
+    yield return new WaitForSeconds(1f);
+    playerTurn();
 }
 }
 
