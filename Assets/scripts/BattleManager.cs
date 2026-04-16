@@ -171,7 +171,9 @@ public class BattleManager : MonoBehaviour
         parrySelectWindow.HidePopUp();
     }
      public void playerTurn()
-    {
+    {  
+        if(state==BattleState.LOST)
+            return;
        state = BattleState.PLAYERTURN;
         
         playerUnit.statusManager.tickStatusEffects(playerUnit);
@@ -185,7 +187,8 @@ public class BattleManager : MonoBehaviour
     private void enemyAttack()
     {
         // Damage the player
-        bool isPlayerDead;
+        bool isPlayerDead=false;
+        bool isEnemyDead=false;
         if(playerUnit.currentState == Player.playerState.STRIKE_PARRYING || playerUnit.currentState == Player.playerState.RANGED_PARRYING)
         {
             if (playerUnit.ParryCheck(enemyUnit.attacks[0]))
@@ -194,15 +197,11 @@ public class BattleManager : MonoBehaviour
             int finalDamage = Mathf.RoundToInt((float)totalDamage);
             popUpManager.PopUp("Player parried the attack and dealt " + finalDamage + " damage!",3f);
             UnityEngine.Debug.Log("Player parried the attack and dealt " + finalDamage + " damage!");
-            isPlayerDead = enemyUnit.TakeDamage(finalDamage);
-            if(isPlayerDead)
-        {
-            // End the battle
-            enemyDefeated();
-            return;
+            isEnemyDead = enemyUnit.TakeDamage(finalDamage);
         }
             
-        }
+          
+            
         else
         {
              enemyUnit.attacks[0].DealDamage(enemyAnimations);
@@ -211,27 +210,17 @@ public class BattleManager : MonoBehaviour
                 popUpManager.PopUp("Player failed to parry and took " + finalDamage + " damage!",3f);
                 UnityEngine.Debug.Log("Player failed to parry and took " + finalDamage + " damage!");
             isPlayerDead = playerUnit.TakeDamage(finalDamage);
-             if(isPlayerDead)
-        {
-            // End the battle
-            state = BattleState.LOST;
-            return;
+    
         }
         }
         
             
-        }
 
         else
         {
-             popUpManager.PopUp("Enemy used " + enemyUnit.attacks[0].attackName + " and dealt " + enemyUnit.attacks[0].damage + " damage!",3f);
+             popUpManager.PopUp("Enemy used " + enemyUnit.attacks[0].attackName + " and dealt " + enemyUnit.attacks[0].damage + " damage!",4f);
            isPlayerDead=playerUnit.TakeDamage(enemyUnit.attacks[0].DealDamage(enemyAnimations));
-             if(isPlayerDead)
-        {
-            // End the battle
-            state = BattleState.LOST;
-            return;
-        } 
+         
         }
        
         
@@ -241,19 +230,34 @@ public class BattleManager : MonoBehaviour
         battleHUD.SetHp(playerUnit.health,enemyUnit.health);
 
         //Check if the enemy is dead
-        if(isPlayerDead)
+        //StartCoroutine(EndResult(isPlayerDead,isEnemyDead));
+
+                
+        
+    }
+
+    public void EndResult(Player playerUnit,Enemy enemyUnit)
+    {
+    
+        
+        if(playerUnit.health<=0)
         {
             // End the battle
-            state = BattleState.LOST;
+            PlayerDefeated();
+        }
+        else if (enemyUnit.health<=0)
+        {   
+            enemyDefeated();
         }
         else
         {
             state = BattleState.PLAYERTURN;
+            playerTurn();
             
         }
 
-                
         
+
     }
     public void enemyTurn()
     {   popUpManager.PopUp("Enemy's Turn!");
@@ -299,6 +303,14 @@ public void OnEndTurnButton()
     }
 }
 
+public void PlayerDefeated()
+{
+    state = BattleState.LOST;
+    playerAnimations.Dead();
+    popUpManager.PopUp("You have been defeated! Game Over!", 5f);
+    battleHUD.endTurnButton.SwitchToContinue();
+}
+
 public void enemyDefeated()
 {
     state = BattleState.WON;
@@ -339,10 +351,10 @@ public void onCloseInfoButton()
 
 public void OnContinueButton()
 {
-    if (state == BattleState.WON)
+    if (state == BattleState.WON || state == BattleState.LOST)
     {
         // Load the next scene or return to the main menu
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Battle Scene");
+        StartCoroutine(SceneController.instance.LoadScene("Title Screen"));
     }
 }
 
@@ -373,15 +385,37 @@ IEnumerator EnemyTurnCoroutine()
         yield return new WaitForSeconds(1.5f);
     }
 
+        
     // THEN ATTACK
     yield return new WaitForSeconds(1f);
     enemyAttack();
 
-    // END TURN DELAY (if needed)
-    yield return new WaitForSeconds(1f);
-    enemyUnit.statusManager.statusTotalDamage = 0; // Reset the total damage for the next turn
-    yield return new WaitForSeconds(1f);
-    playerTurn();
+    yield return new WaitForSeconds(2f);    
+        if (playerUnit.health <= 0)
+        {
+            
+            PlayerDefeated();
+            yield return new WaitForSeconds(5f);
+            yield break;
+        }
+        else if (enemyUnit.health <= 0)
+        {
+            
+            enemyDefeated();
+            yield return new WaitForSeconds(5f);
+            yield break;
+        }
+
+        else
+        {    
+            enemyUnit.statusManager.statusTotalDamage = 0; // Reset the total damage for the next turn
+            playerTurn();
+        }
+
+
+   
+    
+    
 }
 }
 

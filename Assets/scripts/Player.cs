@@ -79,7 +79,7 @@ public class Player : Unit
         // Example: weapon attack costs 1 skill point
             skillPoints -= attacks[1].skillPointCost;
             int damageDealt = attacks[1].DealDamage(playerAnimations,enemyAnimations,enemyStatusManager); // Assuming playerUnit is accessible
-            Debug.Log ("Player used " + attacks[1].attackName + "dealt " + damageDealt + " damage!");
+            Debug.Log ("Player used " + attacks[1].attackName + "dealt " + damageDealt + " damage and Inflicted Burn!");
             return damageDealt;
         }
         else
@@ -97,7 +97,7 @@ public class Player : Unit
             if(itemInstance.item.GetTypeOfItem() == Item.ItemType.Heal || itemInstance.item.GetTypeOfItem() == Item.ItemType.Buff)
             { // If the item is a Heal or Buff type, use it on self
                 itemInstance.item.UseItemSelf(this, itemInstance);
-                popUpManager.PopUp("Used " + itemInstance.item.itemName +". "+itemInstance.RemainingUses+" uses remaining.", 2.0f);
+                popUpManager.PopUp("Used " + itemInstance.item.itemName +" and healed for 30 health! " +itemInstance.RemainingUses+" uses remaining.", 2.0f);
              }
              else
             {

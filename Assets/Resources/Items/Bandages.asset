@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3041b86906eb8c84eae86358db3285dd, type: 3}
   m_Name: Bandages
   m_EditorClassIdentifier: Assembly-CSharp::Bandages
-  itemName: 
+  itemName: Bandages
   description: 
-  MaxUses: 0
+  MaxUses: 3
   itemType: 0
+  healAmount: 30

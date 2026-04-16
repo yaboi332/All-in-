@@ -10,7 +10,7 @@ public class EndTurnButton : MonoBehaviour
 
     public void SwitchToContinue()
     {
-        buttonText.text = "Continue";
+        buttonText.text = "Return";
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(battleManager.OnContinueButton);
     }

@@ -28,13 +28,13 @@ public class InfoWindow : MonoBehaviour
 
     public void ShowPlayerInfo(Player playerUnit)
     {
-        string info = $"Name: {playerUnit.unitName}\nHealth: {playerUnit.health}/{playerUnit.maxHealth}\nSkill Points: {playerUnit.skillPoints}/{playerUnit.MaxSkillPoints} \nStatus Effects: {playerUnit.statusManager.displayStatusEffects()}";
+        string info = $"Name: {playerUnit.unitName}\nHealth: {playerUnit.health}/{playerUnit.maxHealth}\nSkill Points: {playerUnit.skillPoints}/{playerUnit.MaxSkillPoints} \nStatus Effects: {playerUnit.statusManager.displayStatusEffects()}\n\nTips: {playerUnit.description}";
         ShowInfo(info);
     }
     
     public void ShowEnemyInfo(Unit enemyUnit){
     
-        string info = $"Name: {enemyUnit.unitName}\nHealth: {enemyUnit.health}/{enemyUnit.maxHealth}\nStatus Effects: {enemyUnit.statusManager.displayStatusEffects()}";
+        string info = $"Name: {enemyUnit.unitName}\nHealth: {enemyUnit.health}/{enemyUnit.maxHealth}\nStatus Effects: {enemyUnit.statusManager.displayStatusEffects()}\n\nTips: {enemyUnit.description}";
         ShowInfo(info);
     }
 }

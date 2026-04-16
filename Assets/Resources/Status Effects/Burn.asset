@@ -15,6 +15,6 @@ MonoBehaviour:
   type: 0
   effectName: Burn
   description: Takes damage over time for a few turns.
-  maxTurnDuration: 3
+  maxTurnDuration: 2
   damageTick: 5
   maxStacks: 3

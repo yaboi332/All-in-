@@ -160,7 +160,7 @@ MonoBehaviour:
   maxHealth: 100
   level: 1
   damage: 15
-  description: 
+  description: His skill can inflict a burn status effect on the enemy.
   statusManager: {fileID: 458289823678922476}
   skillPoints: 5
   MaxSkillPoints: 5
@@ -186,3 +186,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55fe975bf699b8845a4e0ad8fe6abb0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusManager
+  activeStatusEffects: []
+  statusTotalDamage: 0

@@ -146,8 +146,9 @@ MonoBehaviour:
   maxHealth: 100
   level: 1
   damage: 10
+  description: A simple bot that packs a punch. Use a parry to send the damge right
+    back to him! Watch though, his attack type can change between turns.
   statusManager: {fileID: -5446007481675957412}
-  enemyAnimations: {fileID: 0}
   attacks:
   - {fileID: 11400000, guid: 7d439288f59dc624eb6d5968889c2b75, type: 2}
 --- !u!114 &-5446007481675957412
@@ -162,3 +163,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55fe975bf699b8845a4e0ad8fe6abb0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusManager
+  activeStatusEffects: []
+  statusTotalDamage: 0

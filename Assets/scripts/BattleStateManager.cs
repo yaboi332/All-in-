@@ -1,21 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BattleStateManager
 {
-    public BattleStateManager Instance;
+   /* public BattleStateManager Instance;
     public Dictionary<string,int> HealthMap  = new Dictionary<string, int>();
 
-    void Awake()
-    {
-        if (Instance != null)
-        {
-            Debug.LogWarning("Multiple instances of BattleStateManager found! Destroying duplicate.");
-            Destroy(this);
-            return;
-        }
-        Instance = this;
-    }
+    
 
     void Start()
     {
@@ -32,7 +25,7 @@ public class BattleStateManager
 
     void EndBattle(int currentHealth)
     {
-        Instance.HealthMap["Player"]=currentHealth;
+       // Instance.HealthMap["Player"]=currentHealth;
     }
 
     public void getHealth(string unitName)
@@ -47,4 +40,6 @@ public class BattleStateManager
             Debug.LogWarning("HealthMap does not contain key '" + unitName + "'.");
         }
     }
+
+    */
 }

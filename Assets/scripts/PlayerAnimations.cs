@@ -21,6 +21,16 @@ public class PlayerAnimations : MonoBehaviour
         anim.SetBool("isAttacking", false);
     
     }
+
+    public void Dead()
+    {
+        anim.SetBool("isDead", true);
+    }
+
+    public void Hurt()
+    {
+        anim.SetBool("isHurt", true);
+    }
     
     
 }
