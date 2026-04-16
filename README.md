@@ -84,5 +84,5 @@ Turns initially switched instantly, making gameplay feel unnatural.
 
 ---
 ## Try It Out
--Open the Repository through the Unity Engine
--Press Files ->Build and Run
+- Open the Repository through the Unity Engine
+- Press Files -> Build and Run
